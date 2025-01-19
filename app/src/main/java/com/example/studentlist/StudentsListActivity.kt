@@ -1,5 +1,6 @@
 package com.example.studentlist
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ interface OnItemClickListener {
 
 class StudentsListActivity : AppCompatActivity() {
     private var students: MutableList<Student>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,8 +37,9 @@ class StudentsListActivity : AppCompatActivity() {
 
         val adapter = StudentsRecyclerAdapter(students, object:  OnItemClickListener {
             override fun onItemClick(position: Int) {
-                // TODO: change activity in different Task
-                println(position)
+                val intent = Intent(applicationContext, StudentDetailsActivity::class.java)
+                intent.putExtra("studentPosition", position)
+                startActivity(intent)
             }
         })
         recyclerView.adapter = adapter
